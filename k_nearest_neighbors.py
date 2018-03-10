@@ -1,15 +1,11 @@
 import numpy as np
 from sklearn.metrics.pairwise import euclidean_distances
 
-from sklearn import datasets
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import normalize
-from sklearn.metrics import accuracy_score
-
 class KNN():
     def __init__(self, k=5):
         self.k = k
 
+    # 这里是线性搜索的暴力方法，未实现较复杂的kd树的算法
     def predict(self, X_test, X_train, y_train):
         y_pred = np.empty(X_test.shape[0])
         # 计算欧氏距离矩阵
@@ -24,6 +20,13 @@ class KNN():
             # 投票label
             y_pred[i] = np.bincount(labels[i]).argmax()
         return y_pred
+
+
+
+from sklearn import datasets
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import normalize
+from sklearn.metrics import accuracy_score
 
 if __name__ == "__main__":
     data = datasets.load_iris()
