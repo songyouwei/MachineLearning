@@ -33,14 +33,12 @@ class LogisticRegression():
             # 误差
             err = y - y_pred
             if self.gradient_descent:
-                # 使用梯度下降
-                # f(w)=wTx，对w计算出的梯度就是x:
-                # ▽wf(w) = df(w)/dw = dwT.x/dw = x
+                # 使用梯度下降，∂J/∂W = (y_pred-y)X
                 self.param += self.learning_rate * err.dot(X)
             else:
                 gradient = self.gradient(X.dot(self.param))
                 diag_gradient = np.diag(gradient)
-                # batch优化:??
+                # batch优化:?? W = (X^T X) X^T (diag_grad X W + (y-y_red))
                 self.param = np.linalg.pinv(X.T.dot(diag_gradient).dot(X)) \
                     .dot(X.T) \
                     .dot(diag_gradient.dot(X).dot(self.param) + err)
